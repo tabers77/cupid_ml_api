@@ -3,15 +3,20 @@ import pickle
 import pandas as pd
 import os
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 
 # Load saved models
-vectorizer = pickle.load(open("models/vectorizer.pkl", "rb"))
-knn_model = pickle.load(open("models/knn_model.pkl", "rb"))
+
+vectorizer = pickle.load(open(os.path.join(base_dir, 'models', 'vectorizer.pkl'), "rb"))
+knn_model = pickle.load(open(os.path.join(base_dir, 'models', 'knn_model.pkl'), "rb"))
 
 # Load room data
 # hotel_rooms_grouped = pd.read_csv("datasets/preprocessed_hotel_rooms.csv")  # Save this file earlier
-supplier_rooms_grouped = pd.read_csv("datasets/preprocessed_supplier_rooms.csv")  # Save this file earlier
+
+preprocessed_supplier_rooms_file_path = os.path.join(base_dir, 'datasets', 'preprocessed_supplier_rooms.csv')
+
+supplier_rooms_grouped = pd.read_csv(preprocessed_supplier_rooms_file_path)  # Save this file earlier
 
 
 @app.route("/match_rooms", methods=["POST"])
@@ -72,5 +77,5 @@ def match_rooms():
 
 if __name__ == "__main__":
     # Use dynamic port for deployment
-    port = 80  # int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = 5000  # 80  # int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)  # debug=True

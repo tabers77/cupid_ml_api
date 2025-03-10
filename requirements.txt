@@ -1,4 +1,5 @@
 pandas
-scikit-learn==1.3.0
+#scikit-learn==1.3.0
 Flask
 gunicorn
+# add scipy

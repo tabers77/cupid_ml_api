@@ -7,8 +7,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
 
 
-
-
 class RoomMatcher:
     """
     # # API EXAMPLE OF USAGE
@@ -26,12 +24,14 @@ class RoomMatcher:
 
 
     """
+
     def __init__(self, top_k: int = 10, threshold: float = 0.75):
         self.top_k = top_k
         self.threshold = threshold
         self.vectorizer = TfidfVectorizer()
         self.knn = NearestNeighbors(n_neighbors=self.top_k, metric="cosine", algorithm="auto")
         self.model_path = "/dbfs/FileStore/cupid"
+
     @staticmethod
     def preprocess_text(text: str) -> str:
         """Lowercase, remove special characters and extra spaces."""

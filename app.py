@@ -10,9 +10,8 @@ vectorizer = pickle.load(open("models/vectorizer.pkl", "rb"))
 knn_model = pickle.load(open("models/knn_model.pkl", "rb"))
 
 # Load room data
-#hotel_rooms_grouped = pd.read_csv("datasets/preprocessed_hotel_rooms.csv")  # Save this file earlier
+# hotel_rooms_grouped = pd.read_csv("datasets/preprocessed_hotel_rooms.csv")  # Save this file earlier
 supplier_rooms_grouped = pd.read_csv("datasets/preprocessed_supplier_rooms.csv")  # Save this file earlier
-
 
 
 @app.route("/match_rooms", methods=["POST"])
@@ -28,7 +27,6 @@ def match_rooms():
 
     # Find top-k matches
     distances, indices = knn_model.kneighbors(room_vector, return_distance=True)
-
 
     # Initialize matched and unmatched rooms
     results = []
@@ -72,9 +70,7 @@ def match_rooms():
     })
 
 
-
-
 if __name__ == "__main__":
     # Use dynamic port for deployment
-    port = int(os.environ.get("PORT", 5000))
+    port = 80  # int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
